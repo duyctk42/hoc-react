@@ -1,5 +1,5 @@
 import React from "react";
-import UserInfor from "./UseInfor";
+import AddUserInfor from "./AddUseInfor";
 import DisplayInfor from "./DisplayInfor";
 
 class MyComponent extends React.Component {
@@ -10,16 +10,25 @@ class MyComponent extends React.Component {
       { id: 3, name: "duy2", age: "20" },
     ],
   };
+  handerleAddNewUser = (userobj) => {
+    // let listUsersClone = this.state.listUsers;
+    // listUsersClone.unshift(userobj);
+    // this.setState({
+    //   listUsers: listUsersClone,
+    // });
+     this.setState({
+       listUsers: [userobj, ...this.state.listUsers],
+    });
+  };
   // jsx
   render() {
     return (
       <div>
-        <UserInfor></UserInfor>
+        <AddUserInfor
+          handerleAddNewUser={this.handerleAddNewUser}
+        ></AddUserInfor>
         <br /> <br />
-        <DisplayInfor
-          listUsers={this.state.listUsers}
-          users={this.state.listUsers}
-        ></DisplayInfor>
+        <DisplayInfor listUsers={this.state.listUsers}></DisplayInfor>
       </div>
     );
   }

@@ -1,56 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 
-class AddUserInfor extends React.Component {
-  state = {
-    name: "",
-    address: "duy dep trai",
-    age: "",
-  };
+const AddUseInfor = (props) => {
+  const [name, setName] = useState("");
+  const [address, setaddress] = useState("hoi dan it");
+  const [age, setAge] = useState("");
+  // state = {
+  //       name: "",
+  //       address: "duy dep trai",
+  //       age: "",
+  //     };
 
-  handleOnChaneInput = (event) => {
-    this.setState({
-      name: event.target.value,
-    });
+  const handleOnChaneInput = (event) => {
+    setName(event.target.value);
   };
-  handleOnChaneAge = (event) => {
-    this.setState({
-      age: event.target.value,
-    });
+  const handleOnChaneAge = (event) => {
+    setAge(event.target.value);
   };
-  handleOnsubmit = (event) => {
+  const handleOnsubmit = (event) => {
     event.preventDefault();
-    this.props.handerleAddNewUser({
+    props.handerleAddNewUser({
       id: Math.floor(Math.random() * 100 + 1) + "-random",
-      name: this.state.name,
-      age: this.state.age,
+      name: name,
+      age: age,
     });
   };
-  render() {
-    return (
-      <div>
-        my name id {this.state.name} and i fron {this.state.age}
-        <form onSubmit={(event) => this.handleOnsubmit(event)}>
-          <label>your name:</label>
-          <input
-            value={this.state.name}
-            type="text"
-            onChange={(event) => {
-              this.handleOnChaneInput(event);
-            }}
-          />
-          <label>your age:</label>
-          <input
-            value={this.state.age}
-            type="text"
-            onChange={(event) => {
-              this.handleOnChaneAge(event);
-            }}
-          />
-          <button>submid</button>
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      // my name id {name} and i fron {age}
+      //{" "}
+      <form onSubmit={(event) => handleOnsubmit(event)}>
+        // <label>your name:</label>
+        //{" "}
+        <input
+          value={name}
+          type="text"
+          onChange={(event) => {
+            handleOnChaneInput(event);
+          }}
+        />
+        <label>your age:</label>
+        <input
+          value={age}
+          type="text"
+          onChange={(event) => {
+            handleOnChaneAge(event);
+          }}
+        />
+        <button>submid</button>
+      </form>
+    </div>
+  );
+};
 
-export default AddUserInfor;
+export default AddUseInfor;

@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <Navbar bg="light" expand="lg">
@@ -11,15 +11,15 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <NavLink to="/" className="nav-link">
               Home
-            </Link>
-            <Link to="/User" className="nav-link">
+            </NavLink>
+            <NavLink to="/User" className="nav-link">
               User
-            </Link>
-            <Link to="/Admin" className="nav-link">
+            </NavLink>
+            <NavLink to="/Admin" className="nav-link">
               Admin
-            </Link>
+            </NavLink>
           </Nav>
           <nav>
             <NavDropdown title="Settings" id="basic-nav-dropdown">

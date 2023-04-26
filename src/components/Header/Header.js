@@ -7,7 +7,10 @@ const Header = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Thành Duy</Navbar.Brand>
+        {/* <Navbar.Brand href="#home">Thành Duy</Navbar.Brand> */}
+        <NavLink to="/" className="navbar-brand">
+          Thanh Duy
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -21,13 +24,15 @@ const Header = () => {
               Admin
             </NavLink>
           </Nav>
-          <nav>
-            <NavDropdown title="Settings" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">login</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">log out</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
-            </NavDropdown>
-          </nav>
+          <Nav>
+            <button className="btn-login">log in</button>
+            <button className="btn-signup">sign up</button>
+            {/* <NavDropdown title="Settings" id="basic-nav-dropdown">
+              <NavDropdown.Item>login</NavDropdown.Item>
+              <NavDropdown.Item>log out</NavDropdown.Item>
+              <NavDropdown.Item>Profile</NavDropdown.Item>
+            </NavDropdown> */}
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -1,5 +1,5 @@
 import ModleCreateUser from "./ModleCreateUser";
-
+import "./ManageUser.scss";
 const ManageUser = () => {
   return (
     <div className="manage-user-container">
@@ -8,10 +8,8 @@ const ManageUser = () => {
         <div>
           <button>Add new users</button>
         </div>
-        <div>
-          table users
-          <ModleCreateUser />
-        </div>
+        <div>table users</div>
+        <ModleCreateUser />
       </div>
     </div>
   );

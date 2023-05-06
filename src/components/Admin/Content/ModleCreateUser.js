@@ -1,9 +1,10 @@
 import axios from "axios";
+import { Alert } from "bootstrap";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
-
+import { ToastContainer, toast } from "react-toastify";
 const ModleCreateUser = (props) => {
   const { show, setShow } = props;
 
@@ -32,14 +33,25 @@ const ModleCreateUser = (props) => {
       // setPreviewImage("");
     }
   };
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
   const handSubmidCreatUser = async () => {
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   username: username,
-    //   rose: role,
-    //   userImage: image,
-    // };
+    // validate
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("invalid email");
+      return;
+    }
+    if (!password) {
+      toast.error("invalid password");
+      return;
+    }
+
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
@@ -50,14 +62,17 @@ const ModleCreateUser = (props) => {
       "http://localhost:8081/api/v1/participant",
       data
     );
-    console.log(">>> check res :", res);
+    console.log(">>> check res :", res.data);
+    if (res.data && res.data.EC === 0) {
+      toast.success(res.data.EM);
+      handleClose();
+    }
+    if (res.data && res.data.EC !== 0) {
+      toast.success(res.data.EM);
+    }
   };
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
       <Modal
         show={show}
         onHide={handleClose}

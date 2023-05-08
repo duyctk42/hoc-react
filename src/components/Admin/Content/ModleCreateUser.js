@@ -1,10 +1,10 @@
-import axios from "axios";
 import { Alert } from "bootstrap";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { ToastContainer, toast } from "react-toastify";
+import { postCreatNewUser } from "../../../sevices/apiSevices";
 const ModleCreateUser = (props) => {
   const { show, setShow } = props;
 
@@ -42,33 +42,24 @@ const ModleCreateUser = (props) => {
   };
   const handSubmidCreatUser = async () => {
     // validate
-    const isValidEmail = validateEmail(email);
-    if (!isValidEmail) {
-      toast.error("invalid email");
-      return;
-    }
+    // const isValidEmail = validateEmail(email);
+    // if (!isValidEmail) {
+    //   toast.error("invalid email");
+    //   return;
+    // }
     if (!password) {
       toast.error("invalid password");
       return;
     }
+    let data = await postCreatNewUser(email, password, username, role, image);
+    console.log(data);
 
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
-    data.append("username", username);
-    data.append("role", role);
-    data.append("userImage", image);
-    let res = await axios.post(
-      "http://localhost:8081/api/v1/participant",
-      data
-    );
-    console.log(">>> check res :", res.data);
-    if (res.data && res.data.EC === 0) {
-      toast.success(res.data.EM);
+    if (data && data.EC === 0) {
+      toast.success(data.EM);
       handleClose();
     }
-    if (res.data && res.data.EC !== 0) {
-      toast.success(res.data.EM);
+    if (data && data.EC !== 0) {
+      toast.success(data.EM);
     }
   };
   return (

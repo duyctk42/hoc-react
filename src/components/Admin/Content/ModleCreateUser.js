@@ -52,11 +52,11 @@ const ModleCreateUser = (props) => {
       return;
     }
     let data = await postCreatNewUser(email, password, username, role, image);
-    console.log(data);
 
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
+      await props.fetchListUsers();
     }
     if (data && data.EC !== 0) {
       toast.success(data.EM);

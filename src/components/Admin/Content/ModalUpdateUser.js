@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
-import { ToastContainer, toast } from "react-toastify";
-import { postCreatNewUser } from "../../../sevices/apiSevices";
+import { toast } from "react-toastify";
+import { putUpdateUser } from "../../../sevices/apiSevices";
 import _ from "lodash";
 const ModalUpdateUser = (props) => {
   const { show, setShow, dataUpdate } = props;
@@ -17,6 +17,7 @@ const ModalUpdateUser = (props) => {
     setRole("USER");
     setImage("");
     setPreviewImage("");
+    props.resetUpteData();
   };
 
   const [email, setEmail] = useState("");
@@ -55,28 +56,25 @@ const ModalUpdateUser = (props) => {
       );
   };
   const handSubmidCreatUser = async () => {
-    // validate
     // const isValidEmail = validateEmail(email);
     // if (!isValidEmail) {
     //   toast.error("invalid email");
     //   return;
     // }
-    if (!password) {
-      toast.error("invalid password");
-      return;
-    }
-    let data = await postCreatNewUser(email, password, username, role, image);
+
+    let data = await putUpdateUser(dataUpdate.id, username, role, image);
 
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await props.fetchListUsers();
+      // await props.fetchListUsers();
+
+      await props.fetchListUsersWithPaginate(props.currenPage);
     }
     if (data && data.EC !== 0) {
       toast.success(data.EM);
     }
   };
-  console.log("check data", props.dataUpdate);
   return (
     <>
       <Modal

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { postCreatNewUser } from "../../../sevices/apiSevices";
 const ModleCreateUser = (props) => {
   const { show, setShow } = props;
@@ -41,12 +41,11 @@ const ModleCreateUser = (props) => {
       );
   };
   const handSubmidCreatUser = async () => {
-    // validate
-    // const isValidEmail = validateEmail(email);
-    // if (!isValidEmail) {
-    //   toast.error("invalid email");
-    //   return;
-    // }
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("invalid email");
+      return;
+    }
     if (!password) {
       toast.error("invalid password");
       return;
@@ -56,7 +55,9 @@ const ModleCreateUser = (props) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await props.fetchListUsers();
+      // await props.fetchListUsers();
+      props.setCurrenPage(1);
+      await props.fetchListUsersWithPaginate(1);
     }
     if (data && data.EC !== 0) {
       toast.success(data.EM);
